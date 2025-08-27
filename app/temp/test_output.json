@@ -1,0 +1,70 @@
+{
+  "insight_id": "test-123",
+  "processing_timestamp": "2025-08-27T10:24:25.762727",
+  "phases": {
+    "phase1": {
+      "phase": "academic_discovery",
+      "insight_id": "test-123",
+      "academic_context": {
+        "related_fields": [
+          "quantum computing",
+          "energy"
+        ],
+        "key_concepts": [
+          "efficiency_improvement"
+        ],
+        "research_gaps": [
+          "scalability_analysis",
+          "long_term_effects",
+          "cost_benefit_analysis"
+        ],
+        "literature_confidence": 0.75
+      },
+      "falcon_trigger": false,
+      "timestamp": "2025-08-27T10:24:25.762707"
+    },
+    "phase2": {
+      "phase": "technical_feasibility",
+      "insight_id": "test-123",
+      "feasibility_assessment": {
+        "technical_complexity": "medium",
+        "resource_requirements": {
+          "funding": "medium",
+          "expertise": "high",
+          "time": "6-12 months",
+          "infrastructure": "specialized"
+        },
+        "implementation_barriers": [
+          "regulatory_approval",
+          "technical_scalability",
+          "market_readiness"
+        ],
+        "feasibility_score": 0.68
+      },
+      "falcon_trigger": false,
+      "timestamp": "2025-08-27T10:24:25.762720"
+    },
+    "phase3": {
+      "phase": "contradiction_analysis",
+      "insight_id": "test-123",
+      "contradiction_analysis": {
+        "internal_contradictions": [],
+        "external_contradictions": [],
+        "logical_consistency": 0.8,
+        "evidence_conflicts": []
+      },
+      "final_verification": {
+        "verification_status": "verified",
+        "confidence_score": 0.68,
+        "recommendation": "Requires additional validation"
+      },
+      "falcon_trigger": false,
+      "timestamp": "2025-08-27T10:24:25.762725"
+    }
+  },
+  "summary": {
+    "verification_status": "verified",
+    "confidence_score": 0.68,
+    "falcon_required": false
+  }
+}
