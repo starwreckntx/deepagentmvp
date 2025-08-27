@@ -1,0 +1,51 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DeepAgent MVP Input Schema",
+  "description": "Input format for insights to be processed by DeepAgent MVP",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the insight"
+    },
+    "content": {
+      "type": "string",
+      "description": "The insight text content to be analyzed",
+      "minLength": 10
+    },
+    "source": {
+      "type": "string",
+      "description": "Origin or source of the insight",
+      "enum": ["research_paper", "patent", "news_article", "expert_interview", "conference_presentation", "other"]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when insight was captured"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata about the insight",
+      "properties": {
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"]
+        },
+        "domain": {
+          "type": "string",
+          "description": "Primary domain or field"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relevant tags or keywords"
+        }
+      }
+    }
+  },
+  "required": ["id", "content", "source", "timestamp"],
+  "additionalProperties": false
+}

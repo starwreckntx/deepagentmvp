@@ -1,0 +1,101 @@
+// DeepAgent MVP Verification Protocol Database Schema
+generator client {
+    provider = "prisma-client-js"
+    binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+    output = "/home/ubuntu/deepagent_web/app/node_modules/.prisma/client"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model VerificationRequest {
+  id                    String   @id @default(cuid())
+  insightId             String   @unique
+  content               String
+  source                String
+  timestamp             DateTime
+  priority              String?
+  domain                String?
+  tags                  String[]
+  context               String?
+  depthLevel            String?  // systemic/foundational/implementation  
+  priorityScore         Float?   // 0.0-1.0
+  
+  // Processing status
+  status                ProcessingStatus @default(PENDING)
+  processingStartedAt   DateTime?
+  processingCompletedAt DateTime?
+  
+  // Results
+  result                VerificationResult?
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@map("verification_requests")
+}
+
+model VerificationResult {
+  id                    String   @id @default(cuid())
+  requestId             String   @unique
+  request               VerificationRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  
+  // Summary results
+  verificationStatus    String
+  confidenceScore       Float
+  falconRequired        Boolean
+  
+  // Phase 1 Results
+  phase1RelatedFields   String[]
+  phase1KeyConcepts     String[]
+  phase1ResearchGaps    String[]
+  phase1LitConfidence   Float
+  phase1FalconTrigger   Boolean
+  phase1Timestamp       DateTime
+  
+  // Phase 2 Results
+  phase2TechComplexity  String
+  phase2FundingReq      String
+  phase2ExpertiseReq    String
+  phase2TimeReq         String
+  phase2Infrastructure  String
+  phase2Barriers        String[]
+  phase2FeasibilityScore Float
+  phase2FalconTrigger   Boolean
+  phase2Timestamp       DateTime
+  
+  // Phase 3 Results
+  phase3InternalContradictions String[]
+  phase3ExternalContradictions String[]
+  phase3LogicalConsistency     Float
+  phase3EvidenceConflicts      String[]
+  phase3Recommendation         String
+  phase3FalconTrigger          Boolean
+  phase3Timestamp              DateTime
+  
+  // Full JSON output for detailed view
+  rawOutput             Json
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@map("verification_results")
+}
+
+enum ProcessingStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+// Optional user model for future authentication
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
