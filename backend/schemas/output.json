@@ -1,0 +1,230 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DeepAgent MVP Output Schema",
+  "description": "Output format for processed insights from DeepAgent MVP",
+  "type": "object",
+  "properties": {
+    "insight_id": {
+      "type": "string",
+      "description": "Unique identifier for the processed insight"
+    },
+    "processing_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when processing completed"
+    },
+    "phases": {
+      "type": "object",
+      "description": "Results from each processing phase",
+      "properties": {
+        "phase1": {
+          "$ref": "#/definitions/phase1_result"
+        },
+        "phase2": {
+          "$ref": "#/definitions/phase2_result"
+        },
+        "phase3": {
+          "$ref": "#/definitions/phase3_result"
+        }
+      },
+      "required": ["phase1", "phase2", "phase3"]
+    },
+    "summary": {
+      "type": "object",
+      "description": "High-level summary of processing results",
+      "properties": {
+        "verification_status": {
+          "type": "string",
+          "enum": ["verified", "requires_review", "significant_concerns", "rejected"]
+        },
+        "confidence_score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "falcon_required": {
+          "type": "boolean",
+          "description": "Whether deep Falcon research is recommended"
+        }
+      },
+      "required": ["verification_status", "confidence_score", "falcon_required"]
+    }
+  },
+  "required": ["insight_id", "processing_timestamp", "phases", "summary"],
+  "definitions": {
+    "phase1_result": {
+      "type": "object",
+      "properties": {
+        "phase": {
+          "type": "string",
+          "const": "academic_discovery"
+        },
+        "insight_id": {
+          "type": "string"
+        },
+        "academic_context": {
+          "type": "object",
+          "properties": {
+            "related_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "key_concepts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "research_gaps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "literature_confidence": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0
+            }
+          },
+          "required": ["related_fields", "key_concepts", "research_gaps", "literature_confidence"]
+        },
+        "falcon_trigger": {
+          "type": "boolean"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["phase", "insight_id", "academic_context", "falcon_trigger", "timestamp"]
+    },
+    "phase2_result": {
+      "type": "object",
+      "properties": {
+        "phase": {
+          "type": "string",
+          "const": "technical_feasibility"
+        },
+        "insight_id": {
+          "type": "string"
+        },
+        "feasibility_assessment": {
+          "type": "object",
+          "properties": {
+            "technical_complexity": {
+              "type": "string",
+              "enum": ["low", "medium", "high"]
+            },
+            "resource_requirements": {
+              "type": "object",
+              "properties": {
+                "funding": {
+                  "type": "string"
+                },
+                "expertise": {
+                  "type": "string"
+                },
+                "time": {
+                  "type": "string"
+                },
+                "infrastructure": {
+                  "type": "string"
+                }
+              }
+            },
+            "implementation_barriers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "feasibility_score": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0
+            }
+          },
+          "required": ["technical_complexity", "resource_requirements", "implementation_barriers", "feasibility_score"]
+        },
+        "falcon_trigger": {
+          "type": "boolean"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["phase", "insight_id", "feasibility_assessment", "falcon_trigger", "timestamp"]
+    },
+    "phase3_result": {
+      "type": "object",
+      "properties": {
+        "phase": {
+          "type": "string",
+          "const": "contradiction_analysis"
+        },
+        "insight_id": {
+          "type": "string"
+        },
+        "contradiction_analysis": {
+          "type": "object",
+          "properties": {
+            "internal_contradictions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "external_contradictions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "logical_consistency": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0
+            },
+            "evidence_conflicts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["internal_contradictions", "external_contradictions", "logical_consistency", "evidence_conflicts"]
+        },
+        "final_verification": {
+          "type": "object",
+          "properties": {
+            "verification_status": {
+              "type": "string",
+              "enum": ["verified", "requires_review", "significant_concerns", "rejected"]
+            },
+            "confidence_score": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0
+            },
+            "recommendation": {
+              "type": "string"
+            }
+          },
+          "required": ["verification_status", "confidence_score", "recommendation"]
+        },
+        "falcon_trigger": {
+          "type": "boolean"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["phase", "insight_id", "contradiction_analysis", "final_verification", "falcon_trigger", "timestamp"]
+    }
+  }
+}

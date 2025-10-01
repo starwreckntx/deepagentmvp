@@ -1,0 +1,16 @@
+[master e8887da] DeepAgent MVP deployed successfully
+ 17 files changed, 681 insertions(+), 18 deletions(-)
+ rewrite .abacus.donotdelete (100%)
+ create mode 100644 app/app/api/auth/[...nextauth]/route.ts
+ create mode 100644 app/app/api/signup/route.ts
+ create mode 100644 app/app/auth/signin/page.tsx
+ create mode 100644 app/app/auth/signup/page.tsx
+ create mode 100644 app/app/favicon.ico
+ create mode 100644 app/components/user-nav.tsx
+ create mode 100644 app/favicon.ico
+ create mode 100644 app/lib/auth.ts
+ create mode 100644 app/providers.tsx
+ create mode 100644 app/scripts/seed.ts
+ create mode 100644 app/temp/test_input.json
+ create mode 100644 app/temp/test_output.json
+###e8887da934ec9c9d30b13123c07cc5c291f68c72###

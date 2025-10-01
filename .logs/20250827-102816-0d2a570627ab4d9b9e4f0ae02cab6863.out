@@ -1,0 +1,5 @@
+app/api/auth/[...nextauth]/route.ts(53,17): error TS7031: Binding element 'token' implicitly has an 'any' type.
+app/api/auth/[...nextauth]/route.ts(53,24): error TS7031: Binding element 'user' implicitly has an 'any' type.
+app/api/auth/[...nextauth]/route.ts(59,21): error TS7031: Binding element 'session' implicitly has an 'any' type.
+app/api/auth/[...nextauth]/route.ts(59,30): error TS7031: Binding element 'token' implicitly has an 'any' type.
+exit_code=2

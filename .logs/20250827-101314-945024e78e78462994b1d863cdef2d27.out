@@ -1,0 +1,7 @@
+components/verification-results.tsx(372,16): error TS17008: JSX element 'CardHeader' has no corresponding closing tag.
+components/verification-results.tsx(381,15): error TS17002: Expected corresponding JSX closing tag for 'Collapsible'.
+components/verification-results.tsx(389,13): error TS17002: Expected corresponding JSX closing tag for 'Card'.
+components/verification-results.tsx(390,11): error TS17002: Expected corresponding JSX closing tag for 'div'.
+components/verification-results.tsx(392,5): error TS1005: ')' expected.
+components/verification-results.tsx(393,3): error TS1109: Expression expected.
+exit_code=2

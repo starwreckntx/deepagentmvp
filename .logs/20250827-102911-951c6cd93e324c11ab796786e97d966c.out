@@ -1,0 +1,3 @@
+lib/auth.ts(68,5): error TS2322: Type '{ signIn: string; signUp: string; }' is not assignable to type 'Partial<PagesOptions>'.
+  Object literal may only specify known properties, and 'signUp' does not exist in type 'Partial<PagesOptions>'.
+exit_code=2

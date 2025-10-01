@@ -1,0 +1,150 @@
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DeepAgent MVP Quality Assurance Schema",
+  "description": "Quality metrics and validation criteria for DeepAgent MVP",
+  "type": "object",
+  "properties": {
+    "quality_metrics": {
+      "type": "object",
+      "properties": {
+        "phase1_metrics": {
+          "type": "object",
+          "properties": {
+            "literature_confidence_threshold": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0,
+              "default": 0.6
+            },
+            "minimum_related_fields": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 2
+            },
+            "minimum_key_concepts": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 3
+            }
+          }
+        },
+        "phase2_metrics": {
+          "type": "object",
+          "properties": {
+            "feasibility_score_threshold": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0,
+              "default": 0.5
+            },
+            "required_assessment_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ["technical_complexity", "resource_requirements", "implementation_barriers"]
+            }
+          }
+        },
+        "phase3_metrics": {
+          "type": "object",
+          "properties": {
+            "logical_consistency_threshold": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0,
+              "default": 0.7
+            },
+            "max_acceptable_contradictions": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 2
+            }
+          }
+        },
+        "overall_metrics": {
+          "type": "object",
+          "properties": {
+            "minimum_confidence_for_verification": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 1.0,
+              "default": 0.75
+            },
+            "processing_time_limit_seconds": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 300
+            }
+          }
+        }
+      }
+    },
+    "validation_rules": {
+      "type": "object",
+      "properties": {
+        "input_validation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "content_length_minimum_10_chars",
+            "valid_source_enum",
+            "valid_timestamp_format",
+            "required_fields_present"
+          ]
+        },
+        "output_validation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "all_phases_completed",
+            "valid_confidence_scores",
+            "consistent_insight_ids",
+            "valid_verification_status"
+          ]
+        },
+        "quality_gates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "gate_name": {
+                "type": "string"
+              },
+              "condition": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string",
+                "enum": ["pass", "warn", "fail", "trigger_falcon"]
+              }
+            }
+          },
+          "default": [
+            {
+              "gate_name": "literature_confidence_check",
+              "condition": "phase1.academic_context.literature_confidence >= 0.6",
+              "action": "pass"
+            },
+            {
+              "gate_name": "feasibility_check",
+              "condition": "phase2.feasibility_assessment.feasibility_score >= 0.5",
+              "action": "pass"
+            },
+            {
+              "gate_name": "contradiction_check",
+              "condition": "phase3.contradiction_analysis.logical_consistency >= 0.7",
+              "action": "pass"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": ["quality_metrics", "validation_rules"]
+}
